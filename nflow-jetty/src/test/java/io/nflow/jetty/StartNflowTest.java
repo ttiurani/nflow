@@ -1,6 +1,7 @@
 package io.nflow.jetty;
 
 import static io.nflow.engine.internal.config.Profiles.JMX;
+import static io.nflow.engine.internal.config.Profiles.MARIADB;
 import static io.nflow.engine.internal.config.Profiles.MYSQL;
 import static io.nflow.engine.internal.config.Profiles.POSTGRESQL;
 import static java.lang.Thread.sleep;
@@ -13,9 +14,6 @@ import static org.junit.Assert.fail;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Configurable;
-
-import io.nflow.jetty.JettyServerContainer;
-import io.nflow.jetty.StartNflow;
 
 public class StartNflowTest {
   @Test
@@ -64,6 +62,12 @@ public class StartNflowTest {
   @Ignore
   public void startNflowJettyMysql() throws Exception {
     startStop(initJettyStart(MYSQL));
+  }
+
+  @Test
+  @Ignore
+  public void startNflowJettyMariadb() throws Exception {
+    startStop(initJettyStart(MARIADB));
   }
 
   @Test
