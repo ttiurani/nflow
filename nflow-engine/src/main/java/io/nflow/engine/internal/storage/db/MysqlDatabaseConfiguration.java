@@ -8,7 +8,6 @@ import static org.slf4j.LoggerFactory.getLogger;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
-import java.sql.Types;
 
 import javax.sql.DataSource;
 
@@ -21,7 +20,6 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.nflow.engine.internal.config.NFlow;
-import io.nflow.engine.workflow.instance.WorkflowInstance.WorkflowInstanceStatus;
 
 @Profile(MYSQL)
 @Configuration
@@ -30,10 +28,6 @@ public class MysqlDatabaseConfiguration extends DatabaseConfiguration {
 
   public MysqlDatabaseConfiguration() {
     super("mysql");
-  }
-
-  public MysqlDatabaseConfiguration(String dbType) {
-    super(dbType);
   }
 
   @Bean
@@ -68,65 +62,5 @@ public class MysqlDatabaseConfiguration extends DatabaseConfiguration {
   @Bean
   public SQLVariants sqlVariants() {
     return new MySQLVariants();
-  }
-
-  public static class MySQLVariants implements SQLVariants {
-    @Override
-    public String currentTimePlusSeconds(int seconds) {
-      return "date_add(current_timestamp, interval " + seconds + " second)";
-    }
-
-    @Override
-    public boolean hasUpdateReturning() {
-      return false;
-    }
-
-    @Override
-    public boolean hasUpdateableCTE() {
-      return false;
-    }
-
-    @Override
-    public String nextActivationUpdate() {
-      return "(case "
-          + "when ? is null then null "
-          + "when external_next_activation is null then ? "
-          + "else least(?, external_next_activation) end)";
-    }
-
-    @Override
-    public String workflowStatus(WorkflowInstanceStatus status) {
-      return "'" + status.name() + "'";
-    }
-
-    @Override
-    public String workflowStatus() {
-      return "?";
-    }
-
-    @Override
-    public String actionType() {
-      return "?";
-    }
-
-    @Override
-    public String castToText() {
-      return "";
-    }
-
-    @Override
-    public String limit(String query, String limit) {
-      return query + " limit " + limit;
-    }
-
-    @Override
-    public int longTextType() {
-      return Types.VARCHAR;
-    }
-
-    @Override
-    public boolean useBatchUpdate() {
-      return true;
-    }
   }
 }
