@@ -1,5 +1,6 @@
 package io.nflow.tests.runner;
 
+import static io.nflow.engine.internal.config.Profiles.MARIADB;
 import static io.nflow.engine.internal.config.Profiles.MYSQL;
 import static io.nflow.engine.internal.config.Profiles.ORACLE;
 import static io.nflow.engine.internal.config.Profiles.POSTGRESQL;
@@ -18,7 +19,7 @@ public class SkipNotPersistedDatabaseRule implements TestRule {
     return new Statement() {
       @Override
       public void evaluate() throws Throwable {
-        if (!containsAny(getenv("SPRING_PROFILES_ACTIVE"), MYSQL, POSTGRESQL, ORACLE)) {
+        if (!containsAny(getenv("SPRING_PROFILES_ACTIVE"), MYSQL, POSTGRESQL, ORACLE, MARIADB)) {
           assumeTrue("Skipped test for not real database", false);
         }
         base.evaluate();
