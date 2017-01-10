@@ -12,10 +12,10 @@ env:
 matrix:
   include:
     env: SPRING_PROFILES_ACTIVE=nflow.db.postgresql
-    addons: {postgresql: "9.4"}
+    addons: postgresql: "9.4"
   include:
     env: SPRING_PROFILES_ACTIVE=nflow.db.mariadb
-    addons: {mariadb: "10.0"}
+    addons: mariadb: "10.0"
 before_script:
   - if [[ "$SPRING_PROFILES_ACTIVE" =~ postgre ]]; then psql -c "create user nflow with password 'nflow';" -U postgres; fi
   - if [[ "$SPRING_PROFILES_ACTIVE" =~ postgre ]]; then psql -c "create database nflow owner nflow;" -U postgres; fi
