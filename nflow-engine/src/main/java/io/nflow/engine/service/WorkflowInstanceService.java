@@ -102,6 +102,7 @@ public class WorkflowInstanceService {
    * @return True if the update was successful, false otherwise.
    */
   @Transactional
+  @com.google.inject.persist.Transactional
   public boolean updateWorkflowInstance(WorkflowInstance instance, WorkflowInstanceAction action) {
     Assert.notNull(instance, "Workflow instance can not be null");
     Assert.notNull(action, "Workflow instance action can not be null");
@@ -130,6 +131,7 @@ public class WorkflowInstanceService {
    * @return True if the instance was woken up, false otherwise.
    */
   @Transactional
+  @com.google.inject.persist.Transactional
   public boolean wakeupWorkflowInstance(long id, List<String> expectedStates) {
     return workflowInstanceDao.wakeupWorkflowInstanceIfNotExecuting(id, expectedStates);
   }

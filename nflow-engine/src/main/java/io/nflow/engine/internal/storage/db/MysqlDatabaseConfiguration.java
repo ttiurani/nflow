@@ -62,6 +62,7 @@ public class MysqlDatabaseConfiguration extends DatabaseConfiguration {
   }
 
   @Bean
+  @Override
   public SQLVariants sqlVariants() {
     return new MySQLVariants();
   }

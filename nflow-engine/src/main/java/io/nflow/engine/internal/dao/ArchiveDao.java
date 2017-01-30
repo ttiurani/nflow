@@ -16,9 +16,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.nflow.engine.internal.config.NFlow;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.nflow.engine.internal.config.NFlow;
 
 @Named
 public class ArchiveDao {
@@ -61,6 +60,7 @@ public class ArchiveDao {
   }
 
   @Transactional
+  @com.google.inject.persist.Transactional
   public int archiveWorkflows(List<Integer> workflowIds) {
     String workflowIdParams = params(workflowIds);
 

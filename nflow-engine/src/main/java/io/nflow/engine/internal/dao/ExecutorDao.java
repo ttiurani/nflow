@@ -113,6 +113,7 @@ public class ExecutorDao {
   }
 
   @Transactional
+  @com.google.inject.persist.Transactional
   public boolean isTransactionSupportEnabled() {
     return isActualTransactionActive();
   }

@@ -22,7 +22,7 @@ public class H2DatabaseConfiguration extends DatabaseConfiguration {
   }
 
   @Bean(initMethod="start", destroyMethod="stop")
-  Server h2TcpServer(Environment env) throws SQLException {
+  public Server h2TcpServer(Environment env) throws SQLException {
     String port = env.getProperty("nflow.db.h2.tcp.port");
     if (isBlank(port)) {
       return null;
@@ -31,7 +31,7 @@ public class H2DatabaseConfiguration extends DatabaseConfiguration {
   }
 
   @Bean(initMethod="start", destroyMethod="stop")
-  Server h2ConsoleServer(Environment env) throws SQLException {
+  public Server h2ConsoleServer(Environment env) throws SQLException {
     String port = env.getProperty("nflow.db.h2.console.port");
     if (isBlank(port)) {
       return null;
@@ -40,6 +40,7 @@ public class H2DatabaseConfiguration extends DatabaseConfiguration {
   }
 
   @Bean
+  @Override
   public SQLVariants sqlVariants() {
     return new H2SQLVariants();
   }

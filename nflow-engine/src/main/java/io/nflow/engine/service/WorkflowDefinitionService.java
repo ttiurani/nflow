@@ -12,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nullable;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
@@ -41,7 +42,7 @@ public class WorkflowDefinitionService {
   private final boolean persistWorkflowDefinitions;
 
   @Inject
-  public WorkflowDefinitionService(@NFlow AbstractResource nflowNonSpringWorkflowsListing,
+  public WorkflowDefinitionService(@NFlow @Nullable AbstractResource nflowNonSpringWorkflowsListing,
       WorkflowDefinitionDao workflowDefinitionDao, Environment env) {
     this.nonSpringWorkflowsListing = nflowNonSpringWorkflowsListing;
     this.workflowDefinitionDao = workflowDefinitionDao;

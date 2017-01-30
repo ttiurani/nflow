@@ -457,6 +457,7 @@ public class WorkflowInstanceDao {
   }
 
   @Transactional
+  @com.google.inject.persist.Transactional
   public boolean wakeUpWorkflowExternally(int workflowInstanceId, List<String> expectedStates) {
     StringBuilder sql = new StringBuilder("update nflow_workflow set next_activation = (case when executor_id is null then ")
         .append("least(current_timestamp, coalesce(next_activation, current_timestamp)) else next_activation end), ")
@@ -740,6 +741,7 @@ public class WorkflowInstanceDao {
   }
 
   @Transactional(propagation = MANDATORY)
+  @com.google.inject.persist.Transactional
   public int insertWorkflowInstanceAction(final WorkflowInstance instance, final WorkflowInstanceAction action) {
     int actionId = insertWorkflowInstanceAction(action);
     insertVariables(action.workflowInstanceId, actionId, instance.getChangedStateVariables());

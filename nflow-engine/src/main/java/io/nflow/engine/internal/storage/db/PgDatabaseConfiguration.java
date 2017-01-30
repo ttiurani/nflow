@@ -17,8 +17,8 @@ public class PgDatabaseConfiguration extends DatabaseConfiguration {
     super("postgresql");
   }
 
-
   @Bean
+  @Override
   public SQLVariants sqlVariants() {
     return new PostgreSQLVariants();
   }
