@@ -176,7 +176,7 @@
   <dependencies>
     <dependency>
       <groupId>io.nflow</groupId>
-      <artifactId>nflow-rest-api</artifactId>
+      <artifactId>nflow-rest-api-jax-rs</artifactId>
     </dependency>
     <dependency>
       <groupId>com.nitorcreations</groupId>
