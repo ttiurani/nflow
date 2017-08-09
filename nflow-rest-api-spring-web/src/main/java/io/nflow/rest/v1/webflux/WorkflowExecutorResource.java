@@ -1,43 +1,34 @@
-package io.nflow.rest.v1.jaxrs;
-
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+package io.nflow.rest.v1.webflux;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import io.nflow.engine.service.WorkflowExecutorService;
-import io.nflow.rest.config.jaxrs.NflowCors;
 import io.nflow.rest.v1.converter.ListWorkflowExecutorConverter;
 import io.nflow.rest.v1.msg.ListWorkflowExecutorResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Path("/nflow/v1/workflow-executor")
-@Consumes(APPLICATION_JSON)
-@Produces(APPLICATION_JSON)
+@RequestMapping(value = "/nflow/v1/workflow-executor", consumes = "application/json", produces = "application/json")
 @Api("nFlow workflow executor management")
 @Component
-@NflowCors
 public class WorkflowExecutorResource {
 
   private final WorkflowExecutorService workflowExecutors;
   private final ListWorkflowExecutorConverter converter;
 
-  @Inject
+  @Autowired
   public WorkflowExecutorResource(WorkflowExecutorService workflowExecutors, ListWorkflowExecutorConverter converter) {
     this.workflowExecutors = workflowExecutors;
     this.converter = converter;
   }
 
-  @GET
+  @GetMapping
   @ApiOperation(value = "List workflow executors", response = ListWorkflowExecutorResponse.class, responseContainer = "List")
   public Collection<ListWorkflowExecutorResponse> listWorkflowExecutors() {
     return workflowExecutors.getWorkflowExecutors().stream()

@@ -1,28 +1,15 @@
-package io.nflow.rest.v1.jaxrs;
+package io.nflow.rest.v1.webflux;
 
-import static java.util.Collections.sort;
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import io.nflow.engine.internal.dao.WorkflowDefinitionDao;
-import io.nflow.engine.internal.workflow.StoredWorkflowDefinition;
 import io.nflow.engine.service.WorkflowDefinitionService;
-import io.nflow.engine.workflow.definition.AbstractWorkflowDefinition;
-import io.nflow.engine.workflow.definition.WorkflowState;
-import io.nflow.rest.config.jaxrs.NflowCors;
 import io.nflow.rest.v1.ResourceBase;
 import io.nflow.rest.v1.converter.ListWorkflowDefinitionConverter;
 import io.nflow.rest.v1.msg.ListWorkflowDefinitionResponse;
@@ -30,19 +17,16 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-@Path("/nflow/v1/workflow-definition")
-@Consumes(APPLICATION_JSON)
-@Produces(APPLICATION_JSON)
+@RequestMapping(value = "/nflow/v1/workflow-definition", consumes = "application/json", produces = "application/json")
 @Api("nFlow workflow definition management")
 @Component
-@NflowCors
 public class WorkflowDefinitionResource extends ResourceBase {
 
   private final WorkflowDefinitionService workflowDefinitions;
   private final ListWorkflowDefinitionConverter converter;
   private final WorkflowDefinitionDao workflowDefinitionDao;
 
-  @Inject
+  @Autowired
   public WorkflowDefinitionResource(WorkflowDefinitionService workflowDefinitions, ListWorkflowDefinitionConverter converter,
       WorkflowDefinitionDao workflowDefinitionDao) {
     this.workflowDefinitions = workflowDefinitions;
@@ -50,12 +34,12 @@ public class WorkflowDefinitionResource extends ResourceBase {
     this.workflowDefinitionDao = workflowDefinitionDao;
   }
 
-  @GET
+  @GetMapping
   @ApiOperation(value = "List workflow definitions", response = ListWorkflowDefinitionResponse.class, responseContainer = "List",
     notes = "Returns workflow definition(s): all possible states, transitions between states and other setting metadata."
       + "The workflow definition can deployed in nFlow engine or historical workflow definition stored in the database.")
   public List<ListWorkflowDefinitionResponse> listWorkflowDefinitions(
-      @QueryParam("type") @ApiParam(value = "Included workflow types") List<String> types) {
+      @RequestParam("type") @ApiParam(value = "Included workflow types") List<String> types) {
     return super.listWorkflowDefinitions(types, this.workflowDefinitions, this.converter, this.workflowDefinitionDao);
   }
 }
