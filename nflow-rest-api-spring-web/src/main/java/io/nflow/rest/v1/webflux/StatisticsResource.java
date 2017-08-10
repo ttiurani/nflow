@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.nflow.engine.service.StatisticsService;
 import io.nflow.rest.v1.converter.StatisticsConverter;
@@ -17,7 +18,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-@RequestMapping(value = "/nflow/v1/statistics", consumes = "application/json", produces = "application/json")
+@RestController
+@RequestMapping(value = "/nflow/v1/statistics", produces = "application/json")
 @Api("nFlow statistics")
 @Component
 public class StatisticsResource {
