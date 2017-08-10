@@ -104,7 +104,7 @@
   </developers>
   <modules>
     <module>nflow-engine</module>
-    <module>nflow-rest-api-core</module>
+    <module>nflow-rest-api-common</module>
     <module>nflow-rest-api-jax-rs</module>
     <module>nflow-rest-api-spring-web</module>
     <module>nflow-jetty</module>
@@ -417,7 +417,7 @@
       <id>allModules</id>
       <modules>
         <module>nflow-engine</module>
-        <module>nflow-rest-api-core</module>
+        <module>nflow-rest-api-common</module>
         <module>nflow-rest-api-jax-rs</module>
         <module>nflow-rest-api-spring-web</module>
         <module>nflow-jetty</module>
@@ -478,7 +478,7 @@
       </dependency>
       <dependency>
         <groupId>io.nflow</groupId>
-        <artifactId>nflow-rest-api-core</artifactId>
+        <artifactId>nflow-rest-api-common</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
