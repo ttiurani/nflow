@@ -1,4 +1,4 @@
-package io.nflow.jetty.spring;
+package io.nflow.server.spring;
 
 import static io.nflow.engine.internal.config.Profiles.H2;
 import static java.lang.System.clearProperty;
