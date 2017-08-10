@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -22,6 +23,7 @@ public class RestConfiguration {
   public static final String REST_OBJECT_MAPPER = "nflowRestObjectMapper";
 
   @Bean
+  @Primary // Needed to get spring-boot to find the right mapper by default for Jackson
   @Named(REST_OBJECT_MAPPER)
   public ObjectMapper nflowRestObjectMapper(@NFlow ObjectMapper nflowObjectMapper) {
     ObjectMapper restObjectMapper = nflowObjectMapper.copy();
