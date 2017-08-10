@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.nflow.engine.internal.dao.WorkflowDefinitionDao;
 import io.nflow.engine.service.WorkflowDefinitionService;
@@ -17,7 +18,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
-@RequestMapping(value = "/nflow/v1/workflow-definition", consumes = "application/json", produces = "application/json")
+@RestController
+@RequestMapping(value = "/nflow/v1/workflow-definition", produces = "application/json")
 @Api("nFlow workflow definition management")
 @Component
 public class WorkflowDefinitionResource extends ResourceBase {

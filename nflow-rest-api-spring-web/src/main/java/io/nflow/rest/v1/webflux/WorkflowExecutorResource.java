@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.nflow.engine.service.WorkflowExecutorService;
 import io.nflow.rest.v1.converter.ListWorkflowExecutorConverter;
@@ -14,7 +15,8 @@ import io.nflow.rest.v1.msg.ListWorkflowExecutorResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@RequestMapping(value = "/nflow/v1/workflow-executor", consumes = "application/json", produces = "application/json")
+@RestController
+@RequestMapping(value = "/nflow/v1/workflow-executor", produces = "application/json")
 @Api("nFlow workflow executor management")
 @Component
 public class WorkflowExecutorResource {

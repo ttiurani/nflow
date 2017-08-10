@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.nflow.engine.service.WorkflowInstanceInclude;
 import io.nflow.engine.service.WorkflowInstanceService;
@@ -41,7 +42,8 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@RequestMapping(value = "/nflow/v1/workflow-instance", consumes = "application/json", produces = "application/json")
+@RestController
+@RequestMapping(value = "/nflow/v1/workflow-instance", produces = "application/json")
 @Api("nFlow workflow instance management")
 @Component
 public class WorkflowInstanceResource extends ResourceBase {
@@ -59,7 +61,7 @@ public class WorkflowInstanceResource extends ResourceBase {
     this.workflowInstanceFactory = workflowInstanceFactory;
   }
 
-  @PutMapping
+  @PutMapping(consumes = "application/json")
   @ApiOperation(value = "Submit new workflow instance")
   @ApiResponses(@ApiResponse(code = 201, message = "Workflow was created", response = CreateWorkflowInstanceResponse.class))
   public ResponseEntity<CreateWorkflowInstanceResponse> createWorkflowInstance(
@@ -70,13 +72,13 @@ public class WorkflowInstanceResource extends ResourceBase {
     return ResponseEntity.created(URI.create(String.valueOf(id))).body(createWorkflowConverter.convert(instance));
   }
 
-  @PutMapping(path = "/{id}")
+  @PutMapping(path = "/{id}", consumes = "application/json")
   @ApiOperation(value = "Update workflow instance", notes = "The service is typically used in manual state "
       + "transition via nFlow Explorer or a business UI.")
   @ApiResponses({ @ApiResponse(code = 204, message = "If update was successful"),
       @ApiResponse(code = 409, message = "If workflow was executing and no update was done") })
   public ResponseEntity<?> updateWorkflowInstance(@ApiParam("Internal id for workflow instance") @PathVariable("id") int id,
-      @ApiParam("Submitted workflow instance information") UpdateWorkflowInstanceRequest req) {
+      @RequestBody @ApiParam("Submitted workflow instance information") UpdateWorkflowInstanceRequest req) {
     final boolean updated = super.updateWorkflowInstance(id, req, workflowInstanceFactory, workflowInstances);
     return (updated ? ResponseEntity.noContent() : ResponseEntity.status(HttpStatus.CONFLICT)).build();
   }
@@ -114,11 +116,11 @@ public class WorkflowInstanceResource extends ResourceBase {
         this.workflowInstances, this.listWorkflowConverter);
   }
 
-  @PutMapping(path = "/{id}/signal")
+  @PutMapping(path = "/{id}/signal", consumes = "application/json")
   @ApiOperation(value = "Set workflow instance signal value", notes = "The service may be used for example to interrupt executing workflow instance.")
   @ApiResponses({ @ApiResponse(code = 200, message = "When operation was successful") })
   public ResponseEntity<?> setSignal(@ApiParam("Internal id for workflow instance") @PathVariable("id") int id,
-      @Valid @ApiParam("New signal value") SetSignalRequest req) {
+      @RequestBody @Valid @ApiParam("New signal value") SetSignalRequest req) {
     final boolean updated = workflowInstances.setSignal(id, ofNullable(req.signal), req.reason, WorkflowActionType.externalChange);
     return (updated ? ResponseEntity.ok("Signal was set successfully") : ResponseEntity.ok("Signal was not set"));
   }
