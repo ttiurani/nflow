@@ -1,4 +1,4 @@
-package io.nflow.jetty.spring;
+package io.nflow.server.spring;
 
 import static io.nflow.engine.internal.config.Profiles.H2;
 import static org.apache.commons.lang3.StringUtils.isEmpty;
@@ -24,7 +24,7 @@ public class NflowStandardEnvironment extends StandardEnvironment {
     addActiveProfile(env);
     addPropertyResource(env);
     addPropertyResource("common");
-    addPropertyResource("nflow-jetty");
+    addPropertyResource("nflow-server");
     String profiles = getProperty("profiles", String.class, "");
     for (String profile : profiles.split(",")) {
       if (!profile.trim().isEmpty()) {
