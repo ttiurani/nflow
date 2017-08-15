@@ -1,4 +1,4 @@
-package io.nflow.rest.v1.webflux;
+package io.nflow.rest.v1.springweb;
 
 import java.util.Collection;
 import java.util.stream.Collectors;

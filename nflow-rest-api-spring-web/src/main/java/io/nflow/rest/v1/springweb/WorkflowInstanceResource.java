@@ -1,4 +1,4 @@
-package io.nflow.rest.v1.webflux;
+package io.nflow.rest.v1.springweb;
 
 import static java.util.Optional.ofNullable;
 

@@ -17,7 +17,7 @@ import io.nflow.rest.config.RestConfiguration;
 @Configuration
 @Import(value = { RestConfiguration.class })
 @EnableTransactionManagement
-@ComponentScans({@ComponentScan("io.nflow.engine"), @ComponentScan("io.nflow.rest.v1.webflux")})
+@ComponentScans({@ComponentScan("io.nflow.engine"), @ComponentScan("io.nflow.rest.v1.springweb")})
 public class NflowNettyConfiguration {
 
   @Bean
