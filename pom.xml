@@ -175,7 +175,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <slf4j.version>1.7.25</slf4j.version>
+    <!-- 5.0.0.RC4/M4 combination breaks nfloe-engine/H2DatabaseConfiguration.java "initMethod" and "destroyMethod" annotatations, they can't be found
+      Also nflow/entine/WorkflowDefinitionService AbstractResource can't be injected -->
     <spring.version>5.0.0.RC3</spring.version>
+    <!-- FIXME: Don't rely on spring-boot, but instead on the needed components under it -->
     <spring-boot.version>2.0.0.M3</spring-boot.version>
     <swagger.version>1.5.16</swagger.version>
     <swagger2markup.version>1.3.1</swagger2markup.version>
