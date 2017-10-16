@@ -21,22 +21,30 @@ public class H2DatabaseConfiguration extends DatabaseConfiguration {
     super("h2");
   }
 
-  @Bean(initMethod="start", destroyMethod="stop")
+  // NOTE: With spring 5.0.0.RC3 -> Spring 5.0.0.RC4, destroyMethod
+  // here stopped working because internally this is evaluated as
+  // NullBean during initialization, which doesn't have any methods.
+  @Bean
   Server h2TcpServer(Environment env) throws SQLException {
     String port = env.getProperty("nflow.db.h2.tcp.port");
     if (isBlank(port)) {
       return null;
     }
-    return Server.createTcpServer("-tcp","-tcpAllowOthers","-tcpPort",port);
+    final Server server = Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", port);
+    server.start();
+    return server;
   }
 
-  @Bean(initMethod="start", destroyMethod="stop")
+  // NOTE: above
+  @Bean
   Server h2ConsoleServer(Environment env) throws SQLException {
     String port = env.getProperty("nflow.db.h2.console.port");
     if (isBlank(port)) {
       return null;
     }
-    return Server.createTcpServer("-webPort",port);
+    final Server server = Server.createTcpServer("-webPort", port);
+    server.start();
+    return server;
   }
 
   @Bean
