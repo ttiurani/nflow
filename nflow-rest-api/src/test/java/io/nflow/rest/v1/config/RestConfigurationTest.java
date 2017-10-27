@@ -26,6 +26,9 @@ public class RestConfigurationTest {
   @Test
   public void nflowRestObjectMapperInstantiated() {
     ObjectMapper restMapper = configuration.nflowRestObjectMapper(new ObjectMapper());
-    assertThat(restMapper.getSerializationConfig().hasMapperFeatures(WRITE_DATES_AS_TIMESTAMPS.getMask()), is(true));
+    // FIXME: It seems that setting is(false) is only testing the default value of Jackson,
+    //        as changing in RestConfiguration.java the value to true does not make this fail. This
+    //        test needs to be done somehow differently.
+    assertThat(restMapper.getSerializationConfig().hasMapperFeatures(WRITE_DATES_AS_TIMESTAMPS.getMask()), is(false));
   }
 }
