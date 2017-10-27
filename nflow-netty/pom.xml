@@ -54,12 +54,12 @@
       <artifactId>core-utils</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-webflux</artifactId>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webflux</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-all</artifactId>
+      <groupId>io.projectreactor.ipc</groupId>
+      <artifactId>reactor-netty</artifactId>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>

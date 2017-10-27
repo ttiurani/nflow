@@ -50,31 +50,7 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
-    <repository>
-      <id>spring-io-milestones</id>
-      <name>spring.io milestones</name>
-      <url>https://repo.spring.io/milestone</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
   </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>spring-io-milestones</id>
-      <name>spring.io milestones</name>
-      <url>https://repo.spring.io/milestone</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
   <developers>
     <developer>
       <name>Esa Puttonen</name>
@@ -174,10 +150,9 @@
     <postgresql-embedded.version>2.2</postgresql-embedded.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <reactor.netty.version>0.7.1.RELEASE</reactor.netty.version>
     <slf4j.version>1.7.25</slf4j.version>
     <spring.version>5.0.0.RELEASE</spring.version>
-    <!-- FIXME: Don't rely on spring-boot, but instead on the needed components under it -->
-    <spring-boot.version>2.0.0.M5</spring-boot.version>
     <swagger.version>1.5.16</swagger.version>
     <swagger2markup.version>1.3.1</swagger2markup.version>
     <validation.api.version>2.0.0.Final</validation.api.version>
@@ -336,11 +311,6 @@
           <configuration>
             <generateBackupPoms>false</generateBackupPoms>
           </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-maven-plugin</artifactId>
-          <version>${spring-boot.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -573,9 +543,9 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-webflux</artifactId>
-        <version>${spring-boot.version}</version>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webflux</artifactId>
+        <version>${spring.version}</version>
         <exclusions>
           <exclusion>
             <groupId>commons-logging</groupId>
@@ -659,9 +629,9 @@
       </dependency>
       <!-- netty -->
       <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-all</artifactId>
-        <version>${netty.version}</version>
+        <groupId>io.projectreactor.ipc</groupId>
+        <artifactId>reactor-netty</artifactId>
+        <version>${reactor.netty.version}</version>
       </dependency>
       <!-- validation -->
       <dependency>
