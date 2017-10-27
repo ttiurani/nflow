@@ -56,7 +56,7 @@ public class EngineConfigurationTest {
   }
 
   @Test
-  public void nonSpringWorkflowsListingInstantiationAttempted() {
+  public void nonSpringWorkflowsListingInstantiationAttempted() throws IOException {
     environment.withProperty("nflow.non_spring_workflows_filename", "dummy");
     assertEquals(configuration.nflowNonSpringWorkflowsListing(environment).getFilename(), "dummy");
   }

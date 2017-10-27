@@ -41,7 +41,9 @@ public class H2DatabaseConfiguration extends DatabaseConfiguration {
     if (isBlank(port)) {
       return null;
     }
-    return Server.createTcpServer("-tcp","-tcpAllowOthers","-tcpPort",port);
+    final Server server = Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", port);
+    server.start();
+    return server;
   }
 
   /**
@@ -56,7 +58,9 @@ public class H2DatabaseConfiguration extends DatabaseConfiguration {
     if (isBlank(port)) {
       return null;
     }
-    return Server.createTcpServer("-webPort",port);
+    final Server server = Server.createTcpServer("-webPort", port);
+    server.start();
+    return server;
   }
 
   /**
