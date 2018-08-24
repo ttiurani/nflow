@@ -88,6 +88,7 @@ public class NflowJettyConfiguration {
   private Feature swaggerFeature() {
     Swagger2Feature feature = new Swagger2Feature();
     feature.setBasePath("/nflow/api");
+    feature.setScan(true);
     feature.setContact("nFlow community (nflow-users@googlegroups.com)");
     feature.setDescription(
         "nFlow REST API provides services for managing workflow instances and querying metadata (statistics, workflow "
