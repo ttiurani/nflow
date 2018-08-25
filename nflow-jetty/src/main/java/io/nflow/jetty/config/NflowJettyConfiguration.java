@@ -69,7 +69,10 @@ public class NflowJettyConfiguration {
         statisticsResource,
         archiveResource
         ));
-    factory.setAddress('/' + factory.getAddress());
+    String factoryAddress = factory.getAddress();
+    if (!factoryAddress.startsWith("/")) {
+      factory.setAddress('/' + factoryAddress);
+    }
     factory.setProviders(asList(
         jsonProvider(nflowRestObjectMapper),
         validationExceptionMapper(),
